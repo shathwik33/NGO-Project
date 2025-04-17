@@ -1,24 +1,41 @@
-from flask import Flask, request, render_template, render_template_string
-from chain import abc
-import markdown
+from flask import Flask, request, render_template
+from chain import invoke
+import markdown2
 import os
 
 app = Flask(__name__)
 
-@app.route("/", methods=["GET", "POST"])
+
+@app.route("/", methods=["GET"])
 def home():
     return render_template("index.html")
 
-@app.route("/result", methods=["GET", "POST"])
+
+@app.route("/result", methods=["POST"])
 def result():
-    if request.method == "POST":
-        grade = request.form.get("grade")
-        subject = request.form.get("subject")
-        topic = request.form.get("topic")
-        bloom = request.form.get("bloom")
-        md = markdown.markdown(abc(grade, subject, topic, bloom))
-        return render_template_string(md)
-    return "Submit the form first."
+    grade = request.form.get("grade")
+    subject = request.form.get("subject")
+    topic = request.form.get("topic")
+    num_questions = request.form.get("num_questions")
+    num_slides = request.form.get("num_slides")
+    question_format = request.form.get("question_format")
+    difficulty = request.form.get("difficulty")
+
+    response_text = invoke(
+        grade=grade,
+        subject=subject,
+        topic=topic,
+        num_questions=num_questions,
+        question_format=question_format,
+        difficulty=difficulty,
+        num_slides=num_slides,
+    )
+
+    html_content = markdown2.markdown(response_text)
+
+    return render_template("result.html", content=html_content)
+
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)

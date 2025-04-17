@@ -1,60 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full bg-white">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Lesson Plan Generator</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lesson Plan Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="h-full flex items-center justify-center p-4">
+  <div class="w-full max-w-lg bg-white text-black p-6 border border-black">
+    <header class="mb-8 text-center">
+      <h1 class="text-3xl font-bold tracking-tight">Plan Generator</h1>
+    </header>
 
-    <h1>Lesson Plan Generator</h1>
+    <form method="post" action="/result" class="space-y-6">
+      <div>
+        <label for="grade" class="block text-xs uppercase font-semibold mb-1">Grade (1-10)</label>
+        <select id="grade" name="grade" required class="w-full px-2 py-2 border border-black bg-white text-black">
+          <option value="" disabled selected>Select Grade</option>
+          {% for i in range(1, 11) %}
+          <option>{{ i }}</option>
+          {% endfor %}
+        </select>
+      </div>
 
-    <form method="post" action="/result">
+      <div>
+        <label for="subject" class="block text-xs uppercase font-semibold mb-1">Subject</label>
+        <select id="subject" name="subject" required class="w-full px-2 py-2 border border-black bg-white text-black">
+          <option value="" disabled selected>Select Subject</option>
+          <option>Mathematics</option>
+          <option>Science</option>
+          <option>History</option>
+          <option>Geography</option>
+          <option>English</option>
+        </select>
+      </div>
 
-        <label for="grade">Grade (1-10):</label><br>
-        <select id="grade" name="grade">
-            <option>Select Grade</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-            <option>6</option>
-            <option>7</option>
-            <option>8</option>
-            <option>9</option>
-            <option>10</option>
-        </select><br><br>
+      <div>
+        <label for="topic" class="block text-xs uppercase font-semibold mb-1">Topic</label>
+        <input type="text" id="topic" name="topic" placeholder="Enter Topic" required
+          class="w-full px-2 py-2 border border-black bg-white text-black" />
+      </div>
 
-        <label for="subject">Subject:</label><br>
-        <select id="subject" name="subject">
-            <option>Select Subject</option>
-            <option>Mathematics</option>
-            <option>Science</option>
-            <option>History</option>
-            <option>Geography</option>
-            <option>English</option>
-        </select><br><br>
+      <div>
+        <label for="num_questions" class="block text-xs uppercase font-semibold mb-1">Number of Questions</label>
+        <select id="num_questions" name="num_questions" required
+          class="w-full px-2 py-2 border border-black bg-white text-black">
+          <option value="" disabled selected>Select Number</option>
+          {% for i in range(1, 11) %}
+          <option>{{ i }}</option>
+          {% endfor %}
+        </select>
+      </div>
 
-        <label for="topic">Topic:</label><br>
-        <input type="text" id="topic" name="topic" placeholder="Enter Topic"><br><br>
+      <div>
+        <label for="num_slides" class="block text-xs uppercase font-semibold mb-1">Number of Slides</label>
+        <input type="number" id="num_slides" name="num_slides" placeholder="Enter number" required
+          class="w-full px-2 py-2 border border-black bg-white text-black" min="1" />
+      </div>
 
-        <label for="bloom">Bloom's Taxonomy Verb:</label><br>
-        <select id="bloom" name="bloom">
-            <option>Select Bloom's Verb</option>
-            <option>Analyze</option>
-            <option>Apply</option>
-            <option>Create</option>
-            <option>Evaluate</option>
-            <option>Understand</option>
-            <option>Remember</option>
-        </select><br><br>
+      <div>
+        <label for="question_format" class="block text-xs uppercase font-semibold mb-1">Question Format</label>
+        <select id="question_format" name="question_format" required
+          class="w-full px-2 py-2 border border-black bg-white text-black">
+          <option value="" disabled selected>Select Format</option>
+          <option>MCQ</option>
+          <option>Short Answer</option>
+          <option>Long Answer</option>
+        </select>
+      </div>
 
-        <button type="submit">Generate Lesson Plan</button>
+      <div>
+        <label for="difficulty" class="block text-xs uppercase font-semibold mb-1">Difficulty Level</label>
+        <select id="difficulty" name="difficulty" required
+          class="w-full px-2 py-2 border border-black bg-white text-black">
+          <option value="" disabled selected>Select Difficulty</option>
+          <option>Easy</option>
+          <option>Medium</option>
+          <option>Hard</option>
+        </select>
+      </div>
 
+      <div class="pt-6">
+        <button type="submit"
+          class="w-full py-3 border border-black bg-black text-white font-bold uppercase tracking-wide">
+          Generate Plan
+        </button>
+      </div>
     </form>
-
+  </div>
 </body>
 
 </html>

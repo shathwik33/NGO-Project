@@ -1,6 +1,6 @@
 flask
-markdown
+markdown2
 langchain
-langchain-openai
+langchain-google-genai
 openai
 dotenv
