@@ -1,14 +1,13 @@
 from flask import Flask, request, render_template, render_template_string
 from chain import abc
 import markdown
+import os
 
 app = Flask(__name__)
-
 
 @app.route("/", methods=["GET", "POST"])
 def home():
     return render_template("index.html")
-
 
 @app.route("/result", methods=["GET", "POST"])
 def result():
@@ -21,6 +20,5 @@ def result():
         return render_template_string(md)
     return "Submit the form first."
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
