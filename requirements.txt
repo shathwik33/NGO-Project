@@ -1,0 +1,6 @@
+flask
+markdown
+langchain
+langchain-openai
+openai
+dotenv

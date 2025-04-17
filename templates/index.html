@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson Plan Generator</title>
+</head>
+
+<body>
+
+    <h1>Lesson Plan Generator</h1>
+
+    <form method="post" action="/result">
+
+        <label for="grade">Grade (1-10):</label><br>
+        <select id="grade" name="grade">
+            <option>Select Grade</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+        </select><br><br>
+
+        <label for="subject">Subject:</label><br>
+        <select id="subject" name="subject">
+            <option>Select Subject</option>
+            <option>Mathematics</option>
+            <option>Science</option>
+            <option>History</option>
+            <option>Geography</option>
+            <option>English</option>
+        </select><br><br>
+
+        <label for="topic">Topic:</label><br>
+        <input type="text" id="topic" name="topic" placeholder="Enter Topic"><br><br>
+
+        <label for="bloom">Bloom's Taxonomy Verb:</label><br>
+        <select id="bloom" name="bloom">
+            <option>Select Bloom's Verb</option>
+            <option>Analyze</option>
+            <option>Apply</option>
+            <option>Create</option>
+            <option>Evaluate</option>
+            <option>Understand</option>
+            <option>Remember</option>
+        </select><br><br>
+
+        <button type="submit">Generate Lesson Plan</button>
+
+    </form>
+
+</body>
+
+</html>
