@@ -1,107 +1,181 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-white">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plan Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      .scrollbar-hidden::-webkit-scrollbar {
+        display: none;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plan Generator</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    .scrollbar-hidden::-webkit-scrollbar {
-      display: none;
-    }
+      .scrollbar-hidden {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    </style>
+  </head>
 
-    .scrollbar-hidden {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-  </style>
-</head>
+  <body class="h-full flex items-center justify-center p-4 mt-5">
+    <div
+      class="w-full max-w-lg bg-white text-black p-6 border border-black overflow-y-auto max-h-screen scrollbar-hidden"
+    >
+      <header class="mb-8 text-center">
+        <h1 class="text-3xl font-bold tracking-tight">Plan Generator</h1>
+      </header>
 
-<body class="h-full flex items-center justify-center p-4 mt-5">
-  <div
-    class="w-full max-w-lg bg-white text-black p-6 border border-black overflow-y-auto max-h-screen scrollbar-hidden">
-    <header class="mb-8 text-center">
-      <h1 class="text-3xl font-bold tracking-tight">Plan Generator</h1>
-    </header>
+      <form method="post" action="/result" class="space-y-6">
+        <div>
+          <label for="grade" class="block text-xs uppercase font-semibold mb-1"
+            >Grade (1-10)</label
+          >
+          <select
+            id="grade"
+            name="grade"
+            required
+            class="w-full px-2 py-2 border border-black bg-white text-black"
+          >
+            <option value="" disabled selected>Select Grade</option>
+            {% for i in range(1, 11) %}
+            <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+          </select>
+        </div>
 
-    <form method="post" action="/result" class="space-y-6">
-      <div>
-        <label for="grade" class="block text-xs uppercase font-semibold mb-1">Grade (1-10)</label>
-        <select id="grade" name="grade" required class="w-full px-2 py-2 border border-black bg-white text-black">
-          <option value="" disabled selected>Select Grade</option>
-          {% for i in range(1, 11) %}
-          <option>{{ i }}</option>
-          {% endfor %}
-        </select>
-      </div>
+        <div>
+          <label
+            for="subject"
+            class="block text-xs uppercase font-semibold mb-1"
+            >Subject</label
+          >
+          <select
+            id="subject"
+            name="subject"
+            required
+            class="w-full px-2 py-2 border border-black bg-white text-black"
+          >
+            <option value="" disabled selected>Select Subject</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Science">Science</option>
+            <option value="History">History</option>
+            <option value="Geography">Geography</option>
+            <option value="English">English</option>
+          </select>
+        </div>
 
-      <div>
-        <label for="subject" class="block text-xs uppercase font-semibold mb-1">Subject</label>
-        <select id="subject" name="subject" required class="w-full px-2 py-2 border border-black bg-white text-black">
-          <option value="" disabled selected>Select Subject</option>
-          <option>Mathematics</option>
-          <option>Science</option>
-          <option>History</option>
-          <option>Geography</option>
-          <option>English</option>
-        </select>
-      </div>
+        <div>
+          <label for="topic" class="block text-xs uppercase font-semibold mb-1"
+            >Topic</label
+          >
+          <input
+            type="text"
+            id="topic"
+            name="topic"
+            placeholder="Enter Topic"
+            required
+            class="w-full px-2 py-2 border border-black bg-white text-black"
+          />
+        </div>
 
-      <div>
-        <label for="topic" class="block text-xs uppercase font-semibold mb-1">Topic</label>
-        <input type="text" id="topic" name="topic" placeholder="Enter Topic" required
-          class="w-full px-2 py-2 border border-black bg-white text-black" />
-      </div>
+        <div>
+          <label
+            for="num_questions"
+            class="block text-xs uppercase font-semibold mb-1"
+            >Number of Questions</label
+          >
+          <input
+            type="number"
+            id="num_questions"
+            name="num_questions"
+            placeholder="Enter number of questions"
+            required
+            class="w-full px-2 py-2 border border-black bg-white text-black"
+            min="1"
+            max="10"
+            step="1"
+          />
+        </div>
 
-      <div>
-        <label for="num_questions" class="block text-xs uppercase font-semibold mb-1">Number of Questions</label>
-        <input type="number" id="num_questions" name="num_questions" placeholder="Enter number of questions" required
-          class="w-full px-2 py-2 border border-black bg-white text-black" min="1" max="10" step="1" />
-      </div>
+        <div>
+          <label
+            for="question_format"
+            class="block text-xs uppercase font-semibold mb-1"
+            >Question Format</label
+          >
+          <select
+            id="question_format"
+            name="question_format"
+            required
+            class="w-full px-2 py-2 border border-black bg-white text-black"
+          >
+            <option value="" disabled selected>Select Format</option>
+            <option value="MCQ">MCQ</option>
+            <option value="Short Answer">Short Answer</option>
+            <option value="Long Answer">Long Answer</option>
+          </select>
+        </div>
 
-      <div>
-        <label for="num_slides" class="block text-xs uppercase font-semibold mb-1">Number of Slides</label>
-        <input type="number" id="num_slides" name="num_slides" placeholder="Enter number of slides" required
-          class="w-full px-2 py-2 border border-black bg-white text-black" min="1" />
-      </div>
+        <div>
+          <label
+            for="difficulty"
+            class="block text-xs uppercase font-semibold mb-1"
+            >Difficulty Level</label
+          >
+          <select
+            id="difficulty"
+            name="difficulty"
+            required
+            class="w-full px-2 py-2 border border-black bg-white text-black"
+          >
+            <option value="" disabled selected>Select Difficulty</option>
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
 
-      <div>
-        <label for="question_format" class="block text-xs uppercase font-semibold mb-1">Question Format</label>
-        <select id="question_format" name="question_format" required
-          class="w-full px-2 py-2 border border-black bg-white text-black">
-          <option value="" disabled selected>Select Format</option>
-          <option>MCQ</option>
-          <option>Short Answer</option>
-          <option>Long Answer</option>
-        </select>
-      </div>
+        <div>
+          <label
+            for="num_slides"
+            class="block text-xs uppercase font-semibold mb-1"
+            >Number of Slides</label
+          >
+          <input
+            type="number"
+            id="num_slides"
+            name="num_slides"
+            placeholder="Enter number of slides"
+            required
+            class="w-full px-2 py-2 border border-black bg-white text-black"
+            min="1"
+          />
+        </div>
 
-      <div>
-        <label for="difficulty" class="block text-xs uppercase font-semibold mb-1">Difficulty Level</label>
-        <select id="difficulty" name="difficulty" required
-          class="w-full px-2 py-2 border border-black bg-white text-black">
-          <option value="" disabled selected>Select Difficulty</option>
-          <option>Easy</option>
-          <option>Medium</option>
-          <option>Hard</option>
-        </select>
-      </div>
+        <div>
+          <label
+            for="subtopics"
+            class="block text-xs uppercase font-semibold mb-1"
+            >Subtopics</label
+          >
+          <textarea
+            id="subtopics"
+            name="subtopics"
+            placeholder="Enter points about subtopics"
+            class="w-full px-2 py-2 border border-black bg-white text-black"
+            rows="4"
+          ></textarea>
+        </div>
 
-      <div>
-        <label for="subtopics" class="block text-xs uppercase font-semibold mb-1">Subtopics</label>
-        <textarea id="subtopics" name="subtopics" placeholder="Enter points about subtopics" required
-          class="w-full px-2 py-2 border border-black bg-white text-black" rows="4"></textarea>
-      </div>
-
-      <div class="pt-6">
-        <button type="submit"
-          class="w-full py-3 border border-black bg-black text-white font-bold uppercase tracking-wide">
-          Generate Plan
-        </button>
-      </div>
-    </form>
-  </div>
-</body>
-
+        <div class="pt-6">
+          <button
+            type="submit"
+            class="w-full py-3 border border-black bg-black text-white font-bold uppercase tracking-wide"
+          >
+            Generate Plan
+          </button>
+        </div>
+      </form>
+    </div>
+  </body>
 </html>

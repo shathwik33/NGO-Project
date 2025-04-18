@@ -1,2 +1,7 @@
-__pycache__
+__pycache__/
 .env
+node_modules/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store

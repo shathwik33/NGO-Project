@@ -2,4 +2,4 @@ flask
 markdown2
 langchain
 langchain-google-genai
-dotenv
+python-dotenv

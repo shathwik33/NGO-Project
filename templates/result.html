@@ -1,30 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-white">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lesson Plan Result</title>
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
+  </head>
 
-<body class="h-full flex items-center justify-center p-4">
-    <div class="w-full max-w-3xl bg-white text-black p-6 border border-black flex flex-col">
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl font-bold tracking-tight">Your Plan</h1>
-        </header>
+  <body class="h-full flex items-center justify-center p-4">
+    <div
+      class="w-full max-w-3xl bg-white text-black p-6 border border-black flex flex-col"
+    >
+      <header class="mb-8 text-center">
+        <h1 class="text-3xl font-bold tracking-tight">Your Plan</h1>
+      </header>
 
-        <div class="flex-1 border border-black p-4 whitespace-pre-wrap font-mono overflow-auto max-h-[70vh]">
-            {{ content|safe }}
-        </div>
+      <div
+        class="flex-1 border border-black p-4 whitespace-pre-wrap font-mono overflow-auto max-h-[70vh]"
+      >
+        {{ content|safe }}
+      </div>
 
-        <div class="mt-8 text-center">
-            <a href="/"
-                class="inline-block py-3 px-6 border border-black bg-black text-white font-bold uppercase tracking-wide">
-                Create Another
-            </a>
-        </div>
+      <div class="mt-8 text-center">
+        <a
+          href="/"
+          class="inline-block py-3 px-6 border border-black bg-black text-white font-bold uppercase tracking-wide"
+        >
+          Create Another
+        </a>
+      </div>
     </div>
-</body>
-
+  </body>
 </html>
