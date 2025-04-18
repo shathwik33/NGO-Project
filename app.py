@@ -19,12 +19,14 @@ def result():
     num_questions = request.form.get("num_questions")
     num_slides = request.form.get("num_slides")
     question_format = request.form.get("question_format")
+    subtopics = request.form.get("subtopics")
     difficulty = request.form.get("difficulty")
 
     response_text = invoke(
         grade=grade,
         subject=subject,
         topic=topic,
+        subtopics=subtopics,
         num_questions=num_questions,
         question_format=question_format,
         difficulty=difficulty,

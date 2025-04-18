@@ -10,9 +10,9 @@ llm = ChatGoogleGenerativeAI(model="gemini-2.0-flash")
 parser = StrOutputParser()
 
 prompt_lesson_plan = PromptTemplate(
-    input_variables=["grade", "subject", "topic"],
+    input_variables=["grade", "subject", "topic", "subtopics"],
     template="""
-Create a lesson plan for Grade `{grade}` on **{topic}** in **{subject}**, focusing on real-world applications and deeper understanding. Structure your plan exactly as follows, and output only the lesson plan:
+Create a lesson plan for Grade `{grade}` on **{topic}** in **{subject}**, focusing on real-world applications, deeper understanding, and the subtopics: {subtopics}. Structure your plan exactly as follows, and output only the lesson plan:
 
 (Generate a nice title based on {topic})
 
@@ -31,6 +31,7 @@ prompt_worksheet = PromptTemplate(
         "grade",
         "subject",
         "topic",
+        "subtopics",
         "num_questions",
         "question_format",
         "difficulty",
@@ -39,10 +40,10 @@ prompt_worksheet = PromptTemplate(
 Worksheet Title: Exploring the {topic}
 
 Instructions:
-Answer the following questions based on your understanding of the {topic}. Follow the format: {question_format}.
+Answer the following questions based on your understanding of the {topic} and its subtopics: {subtopics}. Follow the format: {question_format}.
 
 Section: {question_format}
-(Generate {num_questions} questions on {topic}.
+(Generate {num_questions} questions on {topic} and its subtopics.
 - If MCQ: Each must have four options labeled A–D.
 - If Short Answer: Each must require 2–3 sentences.
 - If Long Answer: Each must require detailed explanations in 5–6 sentences.)
@@ -58,14 +59,14 @@ Requirements:
 )
 
 prompt_slides = PromptTemplate(
-    input_variables=["grade", "subject", "topic", "num_slides"],
+    input_variables=["grade", "subject", "topic", "subtopics", "num_slides"],
     template="""
-Create a {num_slides}-slide presentation for a Grade {grade} {subject} class on the topic: "{topic}". Follow this structure:
+Create a {num_slides}-slide presentation for a Grade {grade} {subject} class on the topic: "{topic}" and subtopics: {subtopics}. Follow this structure:
 
 - Start with an engaging hook and clear lesson objective.
-- Explain why learning {topic} is important and what prior knowledge is needed.
+- Explain why learning {topic} and its subtopics is important and what prior knowledge is needed.
 - Introduce main content concepts clearly.
-- Include academic vocabulary and common misunderstandings.
+- Include academic vocabulary and common misunderstandings related to {subtopics}.
 - Design a class activity.
 - Include independent practice.
 - End with a summary and reflection.
@@ -95,6 +96,7 @@ def invoke(
     grade: str,
     subject: str,
     topic: str,
+    subtopics: str,
     num_questions: int,
     question_format: str,
     difficulty: str,
@@ -104,6 +106,7 @@ def invoke(
         "grade": grade,
         "subject": subject,
         "topic": topic,
+        "subtopics": subtopics,
         "num_questions": num_questions,
         "question_format": question_format,
         "difficulty": difficulty,
